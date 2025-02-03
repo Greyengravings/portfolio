@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HITESH NIHALANI</title>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+        }
+
+        header {
+            background: #000;
+            color: #ffffff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        header img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        header nav a {
+            color: #ffffff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        header nav a:hover {
+            color: #00bfa6;
+        }
+
+        .video-section {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .video-section video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .video-section .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: #ffffff;
+        }
+
+        .video-section .overlay h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .video-section .overlay button {
+            background-color: #00bfa6;
+            color: #000;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .video-section .overlay button:hover {
+            background-color: #009e90;
+        }
+
+        section#details, section#about {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        #details h2, #about h2 {
+            font-size: 36px;
+            color: #00bfa6;
+            margin-bottom: 20px;
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: center;
+            gap: 70px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            width: 250px;
+            height: 300px;
+            perspective: 1000px;
+        }
+
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateY(0deg);
+            transition: transform 0.6s;
+        }
+
+        .card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front,
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #333;
+            border-radius: 10px;
+        }
+
+        .card-front {
+            background-color: #121212;
+            border-width: 4px;
+            border-color: #009e90;
+            border-radius: 30px;
+        }
+
+        .card-back {
+            background-color: #00bfa6;
+            color: #000;
+            transform: rotateY(180deg);            
+            border-width: 4px;
+            border-radius: 30px;
+        }
+
+        .chatbot, .scroll-top {
+            position: fixed;
+            background-color: #00bfa6;
+            color: #000;
+            padding: 15px;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
+
+        .chatbot {
+            bottom: 20px;
+            left: 20px;
+        }
+
+        .scroll-top {
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .chatbot:hover, .scroll-top:hover {
+            background-color: #009e90;
+        }
+
+        #chatbotPopup {
+            display: none;
+            position: fixed;
+            bottom: 100px;
+            left: 20px;
+            background: #1b1b1b;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            width: 300px;
+            z-index: 1000;
+        }
+
+        #chatbotPopup textarea {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 15px;
+            border: 1px solid #333;
+            background: #121212;
+            color: #e0e0e0;
+        }
+
+        /* Meeting Popup Styles */
+        .meeting-popup {
+            position: fixed;
+            top: 50%;
+            left: -100%;
+            transform: translateY(-50%);
+            width: 350px;
+            background-color: #1e1e1e;
+            color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            border-radius: 10px 0 0 10px;
+            transition: left 0.4s ease;
+            z-index: 1000;
+            border-radius: 15px;
+          }
+          
+          .meeting-popup.open {
+            left: 0;
+          }
+          
+          .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+          }
+          
+          .popup-header h3 {
+            margin: 0;
+            color: #00bfa6;
+            font-size: 18px;
+          }
+          
+          .popup-header .close-btn {
+            cursor: pointer;
+            font-size: 20px;
+            color: #e0e0e0;
+            transition: color 0.3s;
+          }
+          
+          .popup-header .close-btn:hover {
+            color: #ff0000;
+          }
+          
+          .meeting-popup form input,
+          .meeting-popup form textarea,
+          .meeting-popup form button {
+            width: 95%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+          }
+          
+          .meeting-popup form input,
+          .meeting-popup form textarea {
+            background-color: #121212;
+            color: #e0e0e0;
+            border: 1px solid #333;
+          }
+          
+          .meeting-popup form button {
+            background-color: #00bfa6;
+            color: #000;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+          }
+          
+          .meeting-popup form button:hover {
+            background-color: #008f81;
+          }
+          
+          .meeting-trigger {
+            position: fixed;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            background-color: #00bfa6;
+            color: #000;
+            padding: 15px 20px;
+            border-radius: 0 10px 10px 0;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+          }
+          
+          .meeting-trigger:hover {
+            background-color: #008f81;
+          }
+
+        footer {
+            background: #000;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+    </style>
+    <script>
+      function toggleMeetingPopup() {
+        const popup = document.getElementById('meetingPopup');
+        popup.classList.toggle('open');
+    }
+    
+    function submitMeetingForm(event) {
+        event.preventDefault();
+        alert('Thank you for scheduling a meeting. We will contact you shortly!');
+        toggleMeetingPopup(); // Close the popup after submission
+    }
+    
+        function toggleChatbot() {
+            const chatbotPopup = document.getElementById('chatbotPopup');
+            chatbotPopup.style.display = chatbotPopup.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function submitQuery() {
+            const userQuery = document.getElementById('chatInput').value;
+            if (userQuery.trim() !== '') {
+                alert('Your query has been submitted: ' + userQuery);
+                document.getElementById('chatInput').value = '';
+            } else {
+                alert('Please enter a query before submitting.');
+            }
+        }
+
+        window.onscroll = function () {
+            const scrollTop = document.querySelector('.scroll-top');
+            if (document.documentElement.scrollTop > 200) {
+                scrollTop.style.display = 'flex';
+            } else {
+                scrollTop.style.display = 'none';
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <img src="https://media.licdn.com/dms/image/v2/D4D03AQHIi1I8ZhsQRg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1721661928958?e=1743638400&v=beta&t=QDQOJn5yUDXgJjq53EBbryN72FSTPFGHvBd0B0Ve1NA" alt="Profile Img">
+            <h1>Hitesh Nihalani</h1>
+        </div>
+        <nav>
+            <a href="#about-me">About Me</a>
+            <a href="#services">Projects</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <section class="video-section">
+        <img src="https://www.shutterstock.com/shutterstock/videos/3443839767/thumb/7.jpg?ip=x480" alt="Background Image" class="background-image">
+        <div class="overlay">
+            <h2>TECH INNOVATOR, BUSINESSMAN</h2>
+            <button onclick="location.href='contact.html'">CONTACT ME</button>
+        </div>
+    </section>
+    
+    <style>
+    .video-section {
+        position: relative;
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+    }
+    
+    .background-image {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+    
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.5); /* semi-transparent overlay */
+        color: white;
+        text-align: center;
+    }
+    
+    .overlay h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    
+    .overlay button {
+        background: #ff4d4d;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+    }
+    
+    .overlay button:hover {
+        background: #ff6666;
+    }
+    </style>
+    
+
+    <section id="about-me">
+        <div class="about-container">
+            <div class="about-text">
+                <h2>ABOUT ME</h2>
+                <p>
+                    Hello there! I am Hitesh Nihalani, currently pursuing my Bachelor's degree in Engineering/Technology at Vivekanand Education Society's Institute of Technology, where I'm passionately exploring the realms of Software Development and Information Technology.
+                </p>
+                <p>
+                    As the Co-Chairman and MD of Sigiwent Group of Companies, I oversee Bytespath Solutions and Edukajet as roles of Co-Founder and CFO. I'm passionate about driving innovation in software services and ed-tech to create impactful solutions. Let's connect and explore synergies in tech and education.
+                </p>
+                <p>
+                    <strong>Skills:</strong> Front-end development, web development, UI/UX design, technical project handling, and leadership.
+                </p>
+            </div>
+            <div class="about-image">
+                <img src="https://media.licdn.com/dms/image/v2/D4D03AQHIi1I8ZhsQRg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1721661928958?e=1743638400&v=beta&t=QDQOJn5yUDXgJjq53EBbryN72FSTPFGHvBd0B0Ve1NA" alt="Profile Img">
+            </div>
+        </div>
+    </section>
+    
+    <style>
+        #about-me {
+            max-width: 1200px;
+            margin: 50px auto;
+            display: flex;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            gap: 30px;
+        }
+    
+        .about-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+    
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+    
+        .about-text h2 {
+            font-size: 2em;
+            margin-bottom: 15px;
+            color: #00bfa6;
+        }
+    
+        .about-text p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+    
+        .about-image {
+            flex: 1;
+            text-align: center;
+        }
+    
+        .about-image img {
+            width: 300px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+    
+    <section id="details">
+        <h2>MY PROJECTS</h2>
+        <div class="card-container">
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <p>PAYMENT APP<br>DEVELOPMENT</p>
+                    </div>
+                    <div class="card-back">  
+                        <p>Designed a prototype and technology stack for international payments system management.</p>                          
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <p>SMART PARKING<br>APP</p>
+                    </div>
+                    <div class="card-back">
+                        <p>Designed a prototype and technology stack for efficient parking management.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <p>PUBLIC TRANSPORT FEEDBACK WEBSITE</p>
+                    </div>
+                    <div class="card-back">
+                        <p>Developed a survey platform for gathering user feedback.
+                            Integrated feedback analysis and contact details display.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="work-experience">
+        <h2>WORK EXPERIENCE</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>BYTESPATH SOLUTIONS <span>2024 - PRESENT</span></h3>
+                    <p><strong>Co-Founder and CFO</strong></p>
+                    <p>Managing financial operations and technical operations for Bytespath Solutions, a cutting-edge software service company specializing in tailored digital solutions to meet diverse client needs. <a href="https://bytespath.in" target="_blank">bytespath.in</a></p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>CULTURAL INCHARGE @ VESIT <span>2023 - PRESENT</span></h3>
+                    <p><strong>Class Cultural Incharge</strong></p>
+                    <p>Actively participating in team management and volunteering at cultural college events, showcasing leadership and coordination skills.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>SIGIWENT GROUP OF COMPANIES <span>2023 - PRESENT</span></h3>
+                    <p><strong>Co-Chairman and MD</strong></p>
+                    <p>Focused on empowering businesses through technology and education, with its ed-tech arm Edukajet spearheading innovative learning solutions.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>FAMILY BUSINESS <span>2020 - PRESENT</span></h3>
+                    <p><strong>Business Manager</strong></p>
+                    <p>Actively manages and oversees business operations, ensuring smooth functioning and growth through strategic planning and effective decision-making.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <style>
+        #work-experience {
+            max-width: 800px;
+            margin: 50px auto;
+            font-family: Arial, sans-serif;
+        }
+    
+        h2 {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #009e90;
+        }
+    
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+    
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+    
+        .timeline-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #008f81;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-right: 20px;
+            margin-top: 6px;
+        }
+    
+        .timeline-content {
+            border-left: 2px solid #008f81;
+            padding-left: 20px;
+        }
+    
+        .timeline-content h3 {
+            margin: 0;
+            font-size: 1.2em;
+            color: #008f81;
+        }
+    
+        .timeline-content h3 span {
+            font-weight: normal;
+            font-size: 0.9em;
+            color: #fff;
+        }
+    
+        .timeline-content p {
+            margin: 5px 0;
+            font-size: 1em;
+            color: #fff;
+        }
+    
+        .timeline-content a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    
+        .timeline-content a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    
+
+    <section id="details">
+        <h2>MY SKILLS</h2>
+        <div class="card-container">
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <p>PROJECT<br>MANAGEMENT</p>
+                    </div>
+                    <div class="card-back">
+                        <p>Expert in planning, organizing, and overseeing projects to ensure successful completion.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <p>TEAMWORK</p>
+                    </div>
+                    <div class="card-back">
+                        <p>Adept at collaborating effectively with diverse teams to achieve shared goals.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <p>LEADERSHIP</p>
+                    </div>
+                    <div class="card-back">
+                        <p>Skilled in guiding teams, making decisions, and driving collective success.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <p>EFFECTIVE<br>COMMUNICATION</p>
+                    </div>
+                    <div class="card-back">
+                        <p>Proficient in articulating ideas clearly and fostering understanding in all contexts.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <p>QUICK<br>ADAPTATION</p>
+                    </div>
+                    <div class="card-back">
+                        <p>Highly adaptable to new environments, technologies, and challenges.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <h2>EDUCATION</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>Vivekanand Education Society's Institute of Technology (Autonomus) <span>2023 - PRESENT</span></h3>
+                    <p><strong>Bachelor of Engineering/Technology (B.E/B.Tech)</strong></p>
+                    <p>Currently pursuing a degree with specializatiion in Information Technology with a focus on software development and innovative tech solutions.<a href="https://vesit.ves.ac.in/" target="_blank"> ves.ac.in</a></p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>Upadhye College of Science (State Board of Education) <span>2021 - 2023</span></h3>
+                    <p><strong>Higher Secondary Certificate - HSC (Science Stream)</strong></p>
+                    <p>Completed higher secondary education with a specialization in Mathematics, Physics, and Chemistry, achieving excellent grades.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>Barnes School and Junior College (ICSE Board of Education) <span>2010 - 2021</span></h3>
+                    <p><strong>Secondary School Certification - SSC</strong></p>
+                    <p>Completed foundational education with a consistent academic record and active participation in extracurricular activities.</p>
+                </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <h3>Indian Language School <span>2010 - 2021</span></h3>
+                <p><strong>Pre-Primary</strong></p>
+                <p>Introduced to Education</p>
+            </div>
+        </div>
+    </div>
+    </section>
+    <style>
+        #education{
+            max-width: 950px;
+            margin: 30px auto;
+            font-family: Arial, sans-serif;
+        }
+    
+        h2 {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #009e90;
+        }
+    
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+    
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+    
+        .timeline-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #008f81;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-right: 20px;
+            margin-top: 6px;
+        }
+    
+        .timeline-content {
+            border-left: 2px solid #008f81;
+            padding-left: 20px;
+        }
+    
+        .timeline-content h3 {
+            margin: 0;
+            font-size: 1.2em;
+            color: #008f81;
+        }
+    
+        .timeline-content h3 span {
+            font-weight: normal;
+            font-size: 0.9em;
+            color: #fff;
+        }
+    
+        .timeline-content p {
+            margin: 5px 0;
+            font-size: 1em;
+            color: #fff;
+        }
+    
+        .timeline-content a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    
+        .timeline-content a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    
+  <div id="meetingPopup" class="meeting-popup">
+    <div class="popup-header">
+        <h3>Schedule a Meeting</h3>
+        <span class="close-btn" onclick="toggleMeetingPopup()">×</span>
+    </div>
+    <form onsubmit="submitMeetingForm(event)">
+        <input type="text" placeholder="Full Name" required>
+        <input type="email" placeholder="Email Address" required>
+        <input type="text" placeholder="Phone Number" required>
+        <textarea placeholder="Message or Purpose of Meeting" rows="4" required></textarea>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+<div class="meeting-trigger" onclick="toggleMeetingPopup()">Schedule a Meet</div>
+
+    <div id="chatbotPopup">
+        <textarea id="chatInput" rows="4" placeholder="Type your query here..."></textarea>
+        <button onclick="submitQuery()">Send</button>
+    </div>
+    <div class="chatbot" onclick="toggleChatbot()">💬</div>
+    <div class="scroll-top" onclick="scrollToTop()">⬆</div>
+
+</body>
+</html>
