@@ -17,6 +17,8 @@
             background: #000;
             color: #ffffff;
             padding: 15px 20px;
+            border-width: 20px;
+            border-bottom: #00bfa6;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -29,6 +31,13 @@
         header h1 {
             margin: 0;
             font-size: 24px;
+            transition: color 0.3s;
+        }
+
+        header h1:hover {
+            margin: 0;
+            font-size: 24px;
+            color: #00bfa6;
         }
 
         header img {
@@ -40,7 +49,7 @@
         header nav a {
             color: #ffffff;
             text-decoration: none;
-            margin: 0 15px;
+            margin: 0 10px;
             font-size: 16px;
             transition: color 0.3s;
         }
@@ -112,12 +121,12 @@
         .card-container {
             display: flex;
             justify-content: center;
-            gap: 70px;
+            gap: auto;
             flex-wrap: wrap;
         }
 
         .card {
-            width: 250px;
+            width: 300px;
             height: 300px;
             perspective: 1000px;
         }
@@ -125,7 +134,7 @@
         .card-inner {
             width: 100%;
             height: 100%;
-            position: relative;
+            position: center;
             transform-style: preserve-3d;
             transform: rotateY(0deg);
             transition: transform 0.6s;
@@ -138,19 +147,19 @@
         .card-front,
         .card-back {
             position: absolute;
-            width: 100%;
-            height: 100%;
+            width: 90%;
+            height: 90%;
             backface-visibility: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 1px solid #333;
+            border: 1px solid #00bfa6;
             border-radius: 10px;
         }
 
         .card-front {
             background-color: #121212;
-            border-width: 4px;
+            border-width: 3px;
             border-color: #009e90;
             border-radius: 30px;
         }
@@ -159,7 +168,7 @@
             background-color: #00bfa6;
             color: #000;
             transform: rotateY(180deg);            
-            border-width: 4px;
+            border-width: 5px;
             border-radius: 30px;
         }
 
@@ -169,8 +178,8 @@
             color: #000;
             padding: 15px;
             border-radius: 50%;
-            width: 60px;
-            height: 60px;
+            width: 15px;
+            height: 15px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -189,7 +198,9 @@
         }
 
         .chatbot:hover, .scroll-top:hover {
-            background-color: #009e90;
+            background-color: grey;
+            border-color: #00bfa6;
+            border-width: 2px;
         }
 
         #chatbotPopup {
@@ -317,6 +328,243 @@
             margin-top: 40px;
         }
     </style>
+
+    <style>
+        .video-section {
+            position: relative;
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+        }
+        
+        .background-image {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+        
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.5); /* semi-transparent overlay */
+            color: white;
+            text-align: center;
+        }
+        
+        .overlay h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .overlay button {
+            background: #ff4d4d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .overlay button:hover {
+            background: #ff6666;
+        }
+        </style>
+
+    <style>
+        #about-me {
+            max-width: 1200px;
+            margin: 50px auto;
+            display: flex;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            gap: 30px;
+        }
+    
+        .about-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            width: 90%;
+            justify-content: center;
+            margin-left: auto;
+        }
+    
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+    
+        .about-text h2 {
+            font-size: 2em;
+            margin-bottom: 15px;
+            color: #00bfa6;
+        }
+    
+        .about-text p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+    
+        .about-image {
+            flex: 1;
+            text-align: center;
+        }
+    
+        .about-image img {
+            width: 300px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+
+    <style>
+        #work-experience {
+            max-width: 800px;
+            margin: 50px auto;
+            font-family: Arial, sans-serif;
+        }
+    
+        h2 {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #009e90;
+        }
+    
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+    
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+    
+        .timeline-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #008f81;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-right: 20px;
+            margin-top: 6px;
+        }
+    
+        .timeline-content {
+            border-left: 2px solid #008f81;
+            padding-left: 20px;
+        }
+    
+        .timeline-content h3 {
+            margin: 0;
+            font-size: 1.2em;
+            color: #008f81;
+        }
+    
+        .timeline-content h3 span {
+            font-weight: normal;
+            font-size: 0.9em;
+            color: #fff;
+        }
+    
+        .timeline-content p {
+            margin: 5px 0;
+            font-size: 1em;
+            color: #fff;
+        }
+    
+        .timeline-content a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    
+        .timeline-content a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    <style>
+        #education{
+            max-width: 950px;
+            margin: 30px auto;
+            font-family: Arial, sans-serif;
+        }
+    
+        h2 {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #009e90;
+        }
+    
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+    
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+    
+        .timeline-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #008f81;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-right: 20px;
+            margin-top: 6px;
+        }
+    
+        .timeline-content {
+            border-left: 2px solid #008f81;
+            padding-left: 20px;
+        }
+    
+        .timeline-content h3 {
+            margin: 0;
+            font-size: 1.2em;
+            color: #008f81;
+        }
+    
+        .timeline-content h3 span {
+            font-weight: normal;
+            font-size: 0.9em;
+            color: #fff;
+        }
+    
+        .timeline-content p {
+            margin: 5px 0;
+            font-size: 1em;
+            color: #fff;
+        }
+    
+        .timeline-content a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    
+        .timeline-content a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+
     <script>
       function toggleMeetingPopup() {
         const popup = document.getElementById('meetingPopup');
@@ -358,15 +606,20 @@
         }
     </script>
 </head>
+
+
+
+
+
 <body>
     <header>
-        <div style="display: flex; align-items: center; gap: 10px;">
+        <div style="display: flex; align-items: center; gap: 15px;">
             <img src="MYPIC.jpeg" alt="Profile Img">
             <h1>Hitesh Nihalani</h1>
         </div>
         <nav>
             <a href="#about-me">About Me</a>
-            <a href="#services">Projects</a>
+            <a href="#details">Projects</a>
             <a href="contact.html">Contact</a>
         </nav>
     </header>
@@ -379,56 +632,6 @@
         </div>
     </section>
     
-    <style>
-    .video-section {
-        position: relative;
-        width: 100%;
-        height: auto;
-        overflow: hidden;
-    }
-    
-    .background-image {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-    }
-    
-    .overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: rgba(0, 0, 0, 0.5); /* semi-transparent overlay */
-        color: white;
-        text-align: center;
-    }
-    
-    .overlay h2 {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-    }
-    
-    .overlay button {
-        background: #ff4d4d;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 1rem;
-    }
-    
-    .overlay button:hover {
-        background: #ff6666;
-    }
-    </style>
-    
-
     <section id="about-me">
         <div class="about-container">
             <div class="about-text">
@@ -444,57 +647,11 @@
                 </p>
             </div>
             <div class="about-image">
-                <img src="https://media.licdn.com/dms/image/v2/D4D03AQHIi1I8ZhsQRg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1721661928958?e=1743638400&v=beta&t=QDQOJn5yUDXgJjq53EBbryN72FSTPFGHvBd0B0Ve1NA" alt="Profile Img">
+                <img src="MYPIC.jpeg" alt="Profile Img">
             </div>
         </div>
     </section>
     
-    <style>
-        #about-me {
-            max-width: 1200px;
-            margin: 50px auto;
-            display: flex;
-            align-items: center;
-            font-family: Arial, sans-serif;
-            gap: 30px;
-        }
-    
-        .about-container {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-    
-        .about-text {
-            flex: 1;
-            min-width: 300px;
-        }
-    
-        .about-text h2 {
-            font-size: 2em;
-            margin-bottom: 15px;
-            color: #00bfa6;
-        }
-    
-        .about-text p {
-            font-size: 1.1em;
-            line-height: 1.6;
-            margin-bottom: 10px;
-            color: #fff;
-        }
-    
-        .about-image {
-            flex: 1;
-            text-align: center;
-        }
-    
-        .about-image img {
-            width: 300px;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-    </style>
     
     <section id="details">
         <h2>MY PROJECTS</h2>
@@ -571,73 +728,7 @@
         </div>
     </section>
     
-    <style>
-        #work-experience {
-            max-width: 800px;
-            margin: 50px auto;
-            font-family: Arial, sans-serif;
-        }
     
-        h2 {
-            text-align: center;
-            font-size: 2em;
-            margin-bottom: 20px;
-            color: #009e90;
-        }
-    
-        .timeline {
-            position: relative;
-            padding: 20px 0;
-        }
-    
-        .timeline-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 20px;
-        }
-    
-        .timeline-dot {
-            width: 10px;
-            height: 10px;
-            background-color: #008f81;
-            border-radius: 50%;
-            flex-shrink: 0;
-            margin-right: 20px;
-            margin-top: 6px;
-        }
-    
-        .timeline-content {
-            border-left: 2px solid #008f81;
-            padding-left: 20px;
-        }
-    
-        .timeline-content h3 {
-            margin: 0;
-            font-size: 1.2em;
-            color: #008f81;
-        }
-    
-        .timeline-content h3 span {
-            font-weight: normal;
-            font-size: 0.9em;
-            color: #fff;
-        }
-    
-        .timeline-content p {
-            margin: 5px 0;
-            font-size: 1em;
-            color: #fff;
-        }
-    
-        .timeline-content a {
-            color: #007bff;
-            text-decoration: none;
-        }
-    
-        .timeline-content a:hover {
-            text-decoration: underline;
-        }
-    </style>
     
 
     <section id="details">
@@ -734,77 +825,11 @@
         </div>
     </div>
     </section>
-    <style>
-        #education{
-            max-width: 950px;
-            margin: 30px auto;
-            font-family: Arial, sans-serif;
-        }
     
-        h2 {
-            text-align: center;
-            font-size: 2em;
-            margin-bottom: 20px;
-            color: #009e90;
-        }
-    
-        .timeline {
-            position: relative;
-            padding: 20px 0;
-        }
-    
-        .timeline-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 20px;
-        }
-    
-        .timeline-dot {
-            width: 10px;
-            height: 10px;
-            background-color: #008f81;
-            border-radius: 50%;
-            flex-shrink: 0;
-            margin-right: 20px;
-            margin-top: 6px;
-        }
-    
-        .timeline-content {
-            border-left: 2px solid #008f81;
-            padding-left: 20px;
-        }
-    
-        .timeline-content h3 {
-            margin: 0;
-            font-size: 1.2em;
-            color: #008f81;
-        }
-    
-        .timeline-content h3 span {
-            font-weight: normal;
-            font-size: 0.9em;
-            color: #fff;
-        }
-    
-        .timeline-content p {
-            margin: 5px 0;
-            font-size: 1em;
-            color: #fff;
-        }
-    
-        .timeline-content a {
-            color: #007bff;
-            text-decoration: none;
-        }
-    
-        .timeline-content a:hover {
-            text-decoration: underline;
-        }
-    </style>
     
   <div id="meetingPopup" class="meeting-popup">
     <div class="popup-header">
-        <h3>Schedule a Meeting</h3>
+        <h3>Request a meet</h3>
         <span class="close-btn" onclick="toggleMeetingPopup()">×</span>
     </div>
     <form onsubmit="submitMeetingForm(event)">
@@ -815,7 +840,7 @@
         <button type="submit">Submit</button>
     </form>
 </div>
-<div class="meeting-trigger" onclick="toggleMeetingPopup()">Schedule a Meet</div>
+<div class="meeting-trigger" onclick="toggleMeetingPopup()">Connect with me</div>
 
     <div id="chatbotPopup">
         <textarea id="chatInput" rows="4" placeholder="Type your query here..."></textarea>
