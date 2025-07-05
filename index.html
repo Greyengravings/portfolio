@@ -14,6 +14,7 @@
         }
 
         header {
+            position: fixed;
             background: #000;
             color: #ffffff;
             padding: 15px 20px;
@@ -24,8 +25,15 @@
             align-items: center;
             position: sticky;
             top: 0;
-            z-index: 1000;
+            left: 0;
+            right: 0;
+            z-index: 998;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        header.hide-on-scroll {
+         transform: translateY(-100%);
         }
 
         header h1 {
@@ -47,16 +55,129 @@
         }
 
         header nav a {
-            color: #ffffff;
-            text-decoration: none;
-            margin: 0 10px;
-            font-size: 16px;
-            transition: color 0.3s;
+        color: #fff;
+        text-decoration: none;
+        margin: 0px 10px;
+        font-size: 16px;
+        transition: color 0.3s;
+        position: relative; /* Needed for ::after to position correctly */
         }
 
         header nav a:hover {
-            color: #00bfa6;
+        color: #00bfa6;
         }
+
+        header nav a::after {
+        content: '';
+        position: absolute;
+        bottom: -6px;
+        left: 0;
+        width: 0%;
+        height: 2px;
+        background-color: #00bfa6;
+        transition: width 0.3s ease;
+        }
+
+header nav a:hover::after {
+    width: 100%;
+}
+/* Dropdown link styling matching nav a */
+#experienceDropdown a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+/* Hover effect: color + underline animation */
+#experienceDropdown a:hover {
+    color: #00bfa6;
+}
+
+#experienceDropdown a::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #00bfa6;
+    transition: width 0.3s ease;
+}
+
+#experienceDropdown a:hover::after {
+    width: 90%;
+}
+
+
+.dropdown-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  margin-top: 5px;
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #000;
+  border-radius: 10px;
+  min-width: 80px;
+  z-index: 999;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 1px;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Show dropdown on hover */
+.dropdown-wrapper:hover .dropdown-content {
+  display: block;
+}
+
+  header nav a.nav-link {
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 18px;
+    font-weight: 600;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  header nav a.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color:#00bfa6;
+    transition: width 0.3s ease;
+  }
+
+  header nav a.nav-link:hover::after,
+  header nav a.nav-link.active::after {
+    width: 100%;
+  }
+
+  .dropdown-link {
+    display: block;
+    padding: 10px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+  }
+
+  .dropdown-link:hover {
+    background-color: #1e1e1e;
+  }
 
         .video-section {
             position: relative;
@@ -203,12 +324,27 @@
             border-width: 2px;
         }
 
+        #chatbotpopup button {
+  /* Your styles here */
+  background-color: #00bfa6;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#chatbotpopup button:hover {
+  background-color: #009e90;
+}
         #chatbotPopup {
             display: none;
             position: fixed;
-            bottom: 100px;
+            bottom: 65px;
             left: 20px;
-            background: #1b1b1b;
+            background: #0c0c0c;
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
@@ -219,7 +355,7 @@
         #chatbotPopup textarea {
             width: 95%;
             padding: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             border-radius: 15px;
             border: 1px solid #333;
             background: #121212;
@@ -562,9 +698,77 @@
         .timeline-content a:hover {
             text-decoration: underline;
         }
-    </style>
+
+        .download-section {
+     padding: 3rem 1rem;
+  text-align: center;
+  background-color: #000;
+}
+
+.download-content p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: #fff;
+}
+
+.download-button {
+  display: inline-block;
+  background-color: #00bfa6;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.download-button:hover {
+  background-color: #00574e;
+}
 
 
+
+
+/* Hide hamburger on desktop */
+.hamburger {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #00bfa6;
+}
+
+/* Responsive Navigation */
+@media (max-width: 768px) {
+  nav#navLinks {
+    display: none;
+    flex-direction: column;
+    background: #000;
+    position: absolute;
+    top: 70px;
+    right: 10px;
+    padding: 20px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    z-index: 999;
+  }
+
+  nav#navLinks a {
+    margin: 10px 0;
+    text-decoration: none;
+  }
+
+  nav#navLinks.open {
+    display: flex;
+  }
+
+  .hamburger {
+    display: block;
+    font-size: 28px;
+    cursor: pointer;
+    color: #00bfa6;
+  }
+}
+ </style>
     <script>
       function toggleMeetingPopup() {
         const popup = document.getElementById('meetingPopup');
@@ -607,25 +811,31 @@
     </script>
 </head>
 
-
-
-
-
 <body>
     <header>
-        <div style="display: flex; align-items: center; gap: 15px;">
-            <img src="MYPIC.jpeg" alt="Profile Img">
-            <h1>Hitesh Nihalani</h1>
-        </div>
-        <nav>
-            <a href="#about-me">About Me</a>
-            <a href="#details">Projects</a>
-            <a href="contact.html">Contact</a>
-        </nav>
-    </header>
+  <div style="display: flex; align-items: center; gap: 15px;">
+    <img src="MYPIC.jpeg" alt="Profile Img">
+    <h1>Hitesh Nihalani</h1>
+  </div>
+<div class="hamburger" onclick="toggleMenu()">☰</div>
+<nav id="navLinks">
 
+    <a href="#about-me" class="nav-link">About Me</a>
+<div class="dropdown-wrapper" onclick="toggleDropdown(event)">
+  <a href="" class="nav-link">Experience</a>
+  <div id="experienceDropdown" class="dropdown-content">
+    <a href="#details">My Projects</a>
+    <a href="#work-experience">Work Experience</a>
+    <a href="#details">My Skills</a>
+    <a href="#education">Education</a>
+  </div>
+</div>
+
+    <a href="contact.html" class="nav-link">Contact Me</a>
+  </nav>
+</header>
     <section class="video-section">
-        <img src="https://www.shutterstock.com/shutterstock/videos/3443839767/thumb/7.jpg?ip=x480" alt="Background Image" class="background-image">
+        <img src="Bgimg.jpeg" alt="Background Image" class="background-image">
         <div class="overlay">
             <h2>TECH INNOVATOR, BUSINESSMAN</h2>
             <button onclick="location.href='contact.html'">CONTACT ME</button>
@@ -693,6 +903,14 @@
     <section id="work-experience">
         <h2>WORK EXPERIENCE</h2>
         <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>ITYUKTA NEWSLETTER @ VESIT <span>2025 - PRESENT</span></h3>
+                    <p><strong>Jr. Graphic Designer</strong></p>
+                    <p>Jr Designer for ITYUKTA Newsletter, designs engaging layouts forengaging contents that showcase student achievements anddepartmental highlights from the IT Department at VESIT.</p>
+                </div>
+            </div>
             <div class="timeline-item">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
@@ -838,6 +1056,7 @@
         <input type="text" placeholder="Phone Number" required>
         <textarea placeholder="Message or Purpose of Meeting" rows="4" required></textarea>
         <button type="submit">Submit</button>
+        <p style="font-size: 10px; color: red;">Features are under maintenance , Try after sometime</p>
     </form>
 </div>
 <div class="meeting-trigger" onclick="toggleMeetingPopup()">Connect with me</div>
@@ -845,9 +1064,84 @@
     <div id="chatbotPopup">
         <textarea id="chatInput" rows="4" placeholder="Type your query here..."></textarea>
         <button onclick="submitQuery()">Send</button>
+        <p style="font-size: 10px; color: red;">Features are under maintenance , Try after sometime</p>
     </div>
     <div class="chatbot" onclick="toggleChatbot()">💬</div>
     <div class="scroll-top" onclick="scrollToTop()">⬆</div>
 
+    <section class="download-section">
+  <div class="download-content">
+    <p>This document contains all the necessary details to know about me. Click the button below to download a copy instantly.</p>
+    <a href="Hitesh's Resume.pdf" download class="download-button">Download File</a>
+  </div>
+</section>
+
+<script>
+function toggleDropdown(event) {
+    event.preventDefault();
+    const dropdown = document.getElementById("experienceDropdown");
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    document.addEventListener("click", function outsideClick(e) {
+        if (!event.target.closest("nav")) {
+            dropdown.style.display = "none";
+            document.removeEventListener("click", outsideClick);
+        }
+    });
+}
+</script>
+
+<script>
+  let lastScrollY = window.scrollY;
+  const header = document.querySelector('header');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > lastScrollY && window.scrollY > 50) {
+      // Scrolling down
+      header.classList.add('hide-on-scroll');
+    } else {
+      // Scrolling up
+      header.classList.remove('hide-on-scroll');
+    }
+    lastScrollY = window.scrollY;
+  });
+</script>
+
+
+<script>
+  function toggleMenu() {
+    const nav = document.getElementById('navLinks');
+    nav.classList.toggle('open');
+  }
+</script>
+
+
+<script>
+  function toggleDropdown(event) {
+    event.stopPropagation();
+    const wrapper = event.currentTarget;
+    wrapper.classList.toggle("show");
+  }
+
+  function openDropdown() {
+    document.querySelector(".dropdown-wrapper")?.classList.add("show");
+  }
+
+  function closeDropdown() {
+    document.querySelector(".dropdown-wrapper")?.classList.remove("show");
+  }
+
+  // Close dropdown and menu when clicking outside
+  document.addEventListener("click", function (e) {
+    if (!e.target.closest(".dropdown-wrapper") && !e.target.closest(".hamburger")) {
+      document.querySelector(".dropdown-wrapper")?.classList.remove("show");
+      document.getElementById("navLinks")?.classList.remove("open");
+    }
+  });
+
+  window.addEventListener("scroll", () => {
+    document.querySelector(".dropdown-wrapper")?.classList.remove("show");
+    document.getElementById("navLinks")?.classList.remove("open");
+  });
+</script>
 </body>
 </html>
